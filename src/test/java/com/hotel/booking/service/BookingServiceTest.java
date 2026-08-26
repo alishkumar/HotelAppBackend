@@ -43,7 +43,7 @@ class BookingServiceTest {
         CreateBookingRequest request = new CreateBookingRequest(
                 "Rahul Kumar", "9876543210", "Family Room",
                 LocalDate.of(2026, 8, 25), LocalDate.of(2026, 8, 27),
-                2, new BigDecimal("3500.00"), PaymentType.CASH
+                2, new BigDecimal("3500.00"), new BigDecimal("1000.00"), PaymentType.CASH
         );
 
         when(bookingRepository.save(any(Booking.class))).thenAnswer(i -> i.getArgument(0));
@@ -54,6 +54,7 @@ class BookingServiceTest {
         assertEquals(25082601L, response.getId());
         assertEquals("Rahul Kumar", response.getGuestName());
         assertEquals("Family Room", response.getRoomType());
+        assertEquals(new BigDecimal("1000.00"), response.getAdvanceAmount());
         assertEquals(BookingStatus.CONFIRMED, response.getStatus());
         assertEquals(PaymentType.CASH, response.getPaymentType());
 
@@ -66,7 +67,7 @@ class BookingServiceTest {
         CreateBookingRequest request = new CreateBookingRequest(
                 "Rahul Kumar", "9876543210", "Family Room",
                 LocalDate.of(2026, 8, 27), LocalDate.of(2026, 8, 25),
-                2, new BigDecimal("3500.00"), PaymentType.CASH
+                2, new BigDecimal("3500.00"), new BigDecimal("1000.00"), PaymentType.CASH
         );
 
         assertThrows(InvalidBookingException.class, () -> bookingService.createBooking(request));
@@ -79,13 +80,14 @@ class BookingServiceTest {
         Booking existingBooking = new Booking(
                 25082601L, "Rahul Kumar", "9876543210", "Family Room",
                 LocalDate.of(2026, 8, 25), LocalDate.of(2026, 8, 27),
-                2, new BigDecimal("3500.00"), BookingStatus.CONFIRMED, PaymentType.CASH
+                2, new BigDecimal("3500.00"), new BigDecimal("1000.00"),
+                BookingStatus.CONFIRMED, PaymentType.CASH
         );
 
         UpdateBookingRequest updateRequest = new UpdateBookingRequest(
                 "Rahul Sharma", "9876543210", "Deluxe Room",
                 LocalDate.of(2026, 8, 26), LocalDate.of(2026, 8, 28),
-                3, new BigDecimal("4500.00"), PaymentType.CASH
+                3, new BigDecimal("4500.00"), new BigDecimal("1500.00"), PaymentType.CASH
         );
 
         when(bookingRepository.findById(25082601L)).thenReturn(Optional.of(existingBooking));
@@ -96,6 +98,7 @@ class BookingServiceTest {
         assertNotNull(response);
         assertEquals("Rahul Sharma", response.getGuestName());
         assertEquals("Deluxe Room", response.getRoomType());
+        assertEquals(new BigDecimal("1500.00"), response.getAdvanceAmount());
         assertEquals(3, response.getNumberOfGuests());
         assertEquals(PaymentType.CASH, response.getPaymentType());
     }
@@ -106,7 +109,7 @@ class BookingServiceTest {
         Booking existingBooking = new Booking(
                 25082601L, "Rahul Kumar", "9876543210", "Family Room",
                 LocalDate.of(2026, 8, 25), LocalDate.of(2026, 8, 27),
-                2, new BigDecimal("3500.00"), BookingStatus.CONFIRMED, PaymentType.CASH
+                2, new BigDecimal("3500.00"), null, BookingStatus.CONFIRMED, PaymentType.CASH
         );
 
         when(bookingRepository.findById(25082601L)).thenReturn(Optional.of(existingBooking));

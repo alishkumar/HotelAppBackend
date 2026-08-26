@@ -57,13 +57,14 @@ class BookingControllerTest {
         CreateBookingRequest request = new CreateBookingRequest(
                 "Anita Verma", "9876543210", "Double Room with Private Bathroom",
                 LocalDate.of(2026, 9, 1), LocalDate.of(2026, 9, 5),
-                2, new BigDecimal("5000.00"), PaymentType.CASH
+                2, new BigDecimal("5000.00"), new BigDecimal("1000.00"), PaymentType.CASH
         );
 
         BookingResponse response = new BookingResponse(
                 1092601L, "Anita Verma", "9876543210", "Double Room with Private Bathroom",
                 LocalDate.of(2026, 9, 1), LocalDate.of(2026, 9, 5),
-                2, new BigDecimal("5000.00"), BookingStatus.CONFIRMED, PaymentType.CASH,
+                2, new BigDecimal("5000.00"), new BigDecimal("1000.00"),
+                BookingStatus.CONFIRMED, PaymentType.CASH,
                 LocalDateTime.now(), LocalDateTime.now()
         );
 
@@ -77,6 +78,7 @@ class BookingControllerTest {
                 .andExpect(jsonPath("$.id").value(1092601))
                 .andExpect(jsonPath("$.guestName").value("Anita Verma"))
                 .andExpect(jsonPath("$.roomType").value("Double Room with Private Bathroom"))
+                .andExpect(jsonPath("$.advanceAmount").value(1000.00))
                 .andExpect(jsonPath("$.status").value("CONFIRMED"))
                 .andExpect(jsonPath("$.paymentType").value("CASH"));
     }
@@ -88,7 +90,7 @@ class BookingControllerTest {
         CreateBookingRequest invalidRequest = new CreateBookingRequest(
                 "", "", "",
                 null, null,
-                0, new BigDecimal("-100"), null
+                0, new BigDecimal("-100"), null, null
         );
 
         mockMvc.perform(post("/api/v1/bookings")
@@ -107,7 +109,7 @@ class BookingControllerTest {
         CreateBookingRequest request = new CreateBookingRequest(
                 "Anita Verma", "9876543210", "Double Room with Private Bathroom",
                 LocalDate.of(2026, 9, 5), LocalDate.of(2026, 9, 1),
-                2, new BigDecimal("5000.00"), PaymentType.CASH
+                2, new BigDecimal("5000.00"), null, PaymentType.CASH
         );
 
         when(bookingService.createBooking(any(CreateBookingRequest.class)))

@@ -13,22 +13,23 @@ public class UpdateBookingRequest {
     private LocalDate checkOut;
     private Integer numberOfGuests;
     private BigDecimal totalAmount;
+    private BigDecimal advanceAmount;
     private PaymentType paymentType;
 
     public UpdateBookingRequest() {
-    }
-
-    public UpdateBookingRequest(String guestName, String phone,
-                                LocalDate checkIn, LocalDate checkOut,
-                                Integer numberOfGuests, BigDecimal totalAmount,
-                                PaymentType paymentType) {
-        this(guestName, phone, null, checkIn, checkOut, numberOfGuests, totalAmount, paymentType);
     }
 
     public UpdateBookingRequest(String guestName, String phone, String roomType,
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 PaymentType paymentType) {
+        this(guestName, phone, roomType, checkIn, checkOut, numberOfGuests, totalAmount, null, paymentType);
+    }
+
+    public UpdateBookingRequest(String guestName, String phone, String roomType,
+                                LocalDate checkIn, LocalDate checkOut,
+                                Integer numberOfGuests, BigDecimal totalAmount,
+                                BigDecimal advanceAmount, PaymentType paymentType) {
         this.guestName = guestName;
         this.phone = phone;
         this.roomType = roomType;
@@ -36,6 +37,7 @@ public class UpdateBookingRequest {
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
         this.totalAmount = totalAmount;
+        this.advanceAmount = advanceAmount;
         this.paymentType = paymentType;
     }
 
@@ -93,6 +95,14 @@ public class UpdateBookingRequest {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public BigDecimal getAdvanceAmount() {
+        return advanceAmount;
+    }
+
+    public void setAdvanceAmount(BigDecimal advanceAmount) {
+        this.advanceAmount = advanceAmount;
     }
 
     public PaymentType getPaymentType() {

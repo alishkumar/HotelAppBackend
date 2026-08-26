@@ -17,6 +17,7 @@ public class BookingResponse {
     private LocalDate checkOut;
     private Integer numberOfGuests;
     private BigDecimal totalAmount;
+    private BigDecimal advanceAmount;
     private BookingStatus status;
     private PaymentType paymentType;
     private LocalDateTime createdAt;
@@ -27,7 +28,8 @@ public class BookingResponse {
 
     public BookingResponse(Long id, String guestName, String phone, String roomType,
                            LocalDate checkIn, LocalDate checkOut, Integer numberOfGuests,
-                           BigDecimal totalAmount, BookingStatus status, PaymentType paymentType,
+                           BigDecimal totalAmount, BigDecimal advanceAmount,
+                           BookingStatus status, PaymentType paymentType,
                            LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.guestName = guestName;
@@ -37,6 +39,7 @@ public class BookingResponse {
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
         this.totalAmount = totalAmount;
+        this.advanceAmount = advanceAmount;
         this.status = status;
         this.paymentType = paymentType;
         this.createdAt = createdAt;
@@ -56,6 +59,7 @@ public class BookingResponse {
                 booking.getCheckOut(),
                 booking.getNumberOfGuests(),
                 booking.getTotalAmount(),
+                booking.getAdvanceAmount(),
                 booking.getStatus(),
                 booking.getPaymentType() != null ? booking.getPaymentType() : PaymentType.CASH,
                 booking.getCreatedAt(),
@@ -125,6 +129,14 @@ public class BookingResponse {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public BigDecimal getAdvanceAmount() {
+        return advanceAmount;
+    }
+
+    public void setAdvanceAmount(BigDecimal advanceAmount) {
+        this.advanceAmount = advanceAmount;
     }
 
     public BookingStatus getStatus() {

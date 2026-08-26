@@ -34,6 +34,9 @@ public class Booking {
     @Column(name = "total_amount", nullable = false)
     private BigDecimal totalAmount;
 
+    @Column(name = "advance_amount")
+    private BigDecimal advanceAmount;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private BookingStatus status;
@@ -53,7 +56,8 @@ public class Booking {
 
     public Booking(Long id, String guestName, String phone, String roomType,
                    LocalDate checkIn, LocalDate checkOut, Integer numberOfGuests,
-                   BigDecimal totalAmount, BookingStatus status, PaymentType paymentType) {
+                   BigDecimal totalAmount, BigDecimal advanceAmount,
+                   BookingStatus status, PaymentType paymentType) {
         this.id = id;
         this.guestName = guestName;
         this.phone = phone;
@@ -62,6 +66,7 @@ public class Booking {
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
         this.totalAmount = totalAmount;
+        this.advanceAmount = advanceAmount;
         this.status = status;
         this.paymentType = paymentType;
     }
@@ -148,6 +153,14 @@ public class Booking {
         this.totalAmount = totalAmount;
     }
 
+    public BigDecimal getAdvanceAmount() {
+        return advanceAmount;
+    }
+
+    public void setAdvanceAmount(BigDecimal advanceAmount) {
+        this.advanceAmount = advanceAmount;
+    }
+
     public BookingStatus getStatus() {
         return status;
     }
@@ -204,6 +217,7 @@ public class Booking {
                 ", checkOut=" + checkOut +
                 ", numberOfGuests=" + numberOfGuests +
                 ", totalAmount=" + totalAmount +
+                ", advanceAmount=" + advanceAmount +
                 ", status=" + status +
                 ", paymentType=" + paymentType +
                 ", createdAt=" + createdAt +

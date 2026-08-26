@@ -32,22 +32,25 @@ public class CreateBookingRequest {
     @PositiveOrZero(message = "Total amount must be greater than or equal to 0")
     private BigDecimal totalAmount;
 
+    @PositiveOrZero(message = "Advance amount must be greater than or equal to 0")
+    private BigDecimal advanceAmount;
+
     private PaymentType paymentType;
 
     public CreateBookingRequest() {
-    }
-
-    public CreateBookingRequest(String guestName, String phone,
-                                LocalDate checkIn, LocalDate checkOut,
-                                Integer numberOfGuests, BigDecimal totalAmount,
-                                PaymentType paymentType) {
-        this(guestName, phone, null, checkIn, checkOut, numberOfGuests, totalAmount, paymentType);
     }
 
     public CreateBookingRequest(String guestName, String phone, String roomType,
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 PaymentType paymentType) {
+        this(guestName, phone, roomType, checkIn, checkOut, numberOfGuests, totalAmount, null, paymentType);
+    }
+
+    public CreateBookingRequest(String guestName, String phone, String roomType,
+                                LocalDate checkIn, LocalDate checkOut,
+                                Integer numberOfGuests, BigDecimal totalAmount,
+                                BigDecimal advanceAmount, PaymentType paymentType) {
         this.guestName = guestName;
         this.phone = phone;
         this.roomType = roomType;
@@ -55,6 +58,7 @@ public class CreateBookingRequest {
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
         this.totalAmount = totalAmount;
+        this.advanceAmount = advanceAmount;
         this.paymentType = paymentType != null ? paymentType : PaymentType.CASH;
     }
 
@@ -112,6 +116,14 @@ public class CreateBookingRequest {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public BigDecimal getAdvanceAmount() {
+        return advanceAmount;
+    }
+
+    public void setAdvanceAmount(BigDecimal advanceAmount) {
+        this.advanceAmount = advanceAmount;
     }
 
     public PaymentType getPaymentType() {

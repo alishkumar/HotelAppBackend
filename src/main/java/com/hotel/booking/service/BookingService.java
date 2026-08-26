@@ -58,6 +58,7 @@ public class BookingService {
         booking.setCheckOut(request.getCheckOut());
         booking.setNumberOfGuests(request.getNumberOfGuests());
         booking.setTotalAmount(request.getTotalAmount());
+        booking.setAdvanceAmount(request.getAdvanceAmount());
         booking.setStatus(BookingStatus.CONFIRMED);
         booking.setPaymentType(request.getPaymentType() != null ? request.getPaymentType() : PaymentType.CASH);
 
@@ -100,6 +101,7 @@ public class BookingService {
         booking.setCheckOut(request.getCheckOut());
         booking.setNumberOfGuests(request.getNumberOfGuests());
         booking.setTotalAmount(request.getTotalAmount());
+        booking.setAdvanceAmount(request.getAdvanceAmount());
         if (request.getPaymentType() != null) {
             booking.setPaymentType(request.getPaymentType());
         }
