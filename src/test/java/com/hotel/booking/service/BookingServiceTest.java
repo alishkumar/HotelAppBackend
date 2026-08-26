@@ -46,18 +46,12 @@ class BookingServiceTest {
                 2, new BigDecimal("3500.00"), PaymentType.CASH
         );
 
-        Booking savedBooking = new Booking(
-                1L, "Rahul Kumar", "9876543210",
-                LocalDate.of(2026, 8, 25), LocalDate.of(2026, 8, 27),
-                2, new BigDecimal("3500.00"), BookingStatus.CONFIRMED, PaymentType.CASH
-        );
-
-        when(bookingRepository.save(any(Booking.class))).thenReturn(savedBooking);
+        when(bookingRepository.save(any(Booking.class))).thenAnswer(i -> i.getArgument(0));
 
         BookingResponse response = bookingService.createBooking(request);
 
         assertNotNull(response);
-        assertEquals(1L, response.getId());
+        assertEquals(25082601L, response.getId());
         assertEquals("Rahul Kumar", response.getGuestName());
         assertEquals(BookingStatus.CONFIRMED, response.getStatus());
         assertEquals(PaymentType.CASH, response.getPaymentType());
@@ -82,7 +76,7 @@ class BookingServiceTest {
     @DisplayName("Update booking successfully")
     void updateBooking_Success() {
         Booking existingBooking = new Booking(
-                1L, "Rahul Kumar", "9876543210",
+                25082601L, "Rahul Kumar", "9876543210",
                 LocalDate.of(2026, 8, 25), LocalDate.of(2026, 8, 27),
                 2, new BigDecimal("3500.00"), BookingStatus.CONFIRMED, PaymentType.CASH
         );
@@ -93,10 +87,10 @@ class BookingServiceTest {
                 3, new BigDecimal("4500.00"), PaymentType.CASH
         );
 
-        when(bookingRepository.findById(1L)).thenReturn(Optional.of(existingBooking));
+        when(bookingRepository.findById(25082601L)).thenReturn(Optional.of(existingBooking));
         when(bookingRepository.save(any(Booking.class))).thenAnswer(i -> i.getArgument(0));
 
-        BookingResponse response = bookingService.updateBooking(1L, updateRequest);
+        BookingResponse response = bookingService.updateBooking(25082601L, updateRequest);
 
         assertNotNull(response);
         assertEquals("Rahul Sharma", response.getGuestName());
@@ -108,15 +102,15 @@ class BookingServiceTest {
     @DisplayName("Cancel booking successfully changes status to CANCELLED")
     void cancelBooking_Success() {
         Booking existingBooking = new Booking(
-                1L, "Rahul Kumar", "9876543210",
+                25082601L, "Rahul Kumar", "9876543210",
                 LocalDate.of(2026, 8, 25), LocalDate.of(2026, 8, 27),
                 2, new BigDecimal("3500.00"), BookingStatus.CONFIRMED, PaymentType.CASH
         );
 
-        when(bookingRepository.findById(1L)).thenReturn(Optional.of(existingBooking));
+        when(bookingRepository.findById(25082601L)).thenReturn(Optional.of(existingBooking));
         when(bookingRepository.save(any(Booking.class))).thenAnswer(i -> i.getArgument(0));
 
-        BookingResponse response = bookingService.cancelBooking(1L);
+        BookingResponse response = bookingService.cancelBooking(25082601L);
 
         assertEquals(BookingStatus.CANCELLED, response.getStatus());
     }

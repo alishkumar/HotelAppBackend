@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Clock;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -41,10 +42,15 @@ public class BookingService {
     }
 
     @Transactional
-    public BookingResponse createBooking(CreateBookingRequest request) {
+    public synchronized BookingResponse createBooking(CreateBookingRequest request) {
         validateBookingDates(request.getCheckIn(), request.getCheckOut());
 
         Booking booking = new Booking();
+        
+        // Generate custom date-based ID (Format: DDMMYYXX e.g. 26082601)
+        long customId = generateCustomBookingId(request.getCheckIn());
+        booking.setId(customId);
+
         booking.setGuestName(request.getGuestName());
         booking.setPhone(request.getPhone());
         booking.setCheckIn(request.getCheckIn());
@@ -55,9 +61,23 @@ public class BookingService {
         booking.setPaymentType(request.getPaymentType() != null ? request.getPaymentType() : PaymentType.CASH);
 
         Booking savedBooking = bookingRepository.save(booking);
-        log.info("Booking created with ID: {}", savedBooking.getId());
+        log.info("Booking created with custom ID: {}", savedBooking.getId());
 
         return BookingResponse.fromEntity(savedBooking);
+    }
+
+    public long generateCustomBookingId(LocalDate checkIn) {
+        String datePrefixStr = checkIn.format(DateTimeFormatter.ofPattern("ddMMyy"));
+        long prefix = Long.parseLong(datePrefixStr);
+        long minId = prefix * 100 + 1;
+        long maxId = prefix * 100 + 99;
+
+        Long maxExistingId = bookingRepository.findMaxIdInRange(minId, maxId);
+        if (maxExistingId == null || maxExistingId == 0) {
+            return minId;
+        } else {
+            return maxExistingId + 1;
+        }
     }
 
     @Transactional

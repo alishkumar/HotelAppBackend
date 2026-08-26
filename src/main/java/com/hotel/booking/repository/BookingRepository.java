@@ -28,4 +28,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long>, JpaSpec
 
     @Query("SELECT b FROM Booking b WHERE b.checkOut = :today AND b.status != :status")
     List<Booking> findByCheckOutAndStatusNot(@Param("today") LocalDate today, @Param("status") BookingStatus status);
+
+    @Query("SELECT MAX(b.id) FROM Booking b WHERE b.id >= :minId AND b.id <= :maxId")
+    Long findMaxIdInRange(@Param("minId") Long minId, @Param("maxId") Long maxId);
 }
