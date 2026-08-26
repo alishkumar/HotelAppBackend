@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hotel.booking.dto.CreateBookingRequest;
 import com.hotel.booking.dto.BookingResponse;
 import com.hotel.booking.entity.BookingStatus;
+import com.hotel.booking.entity.PaymentType;
 import com.hotel.booking.service.BookingService;
 import com.hotel.common.exception.InvalidBookingException;
 import com.hotel.common.security.JwtAuthenticationFilter;
@@ -56,13 +57,13 @@ class BookingControllerTest {
         CreateBookingRequest request = new CreateBookingRequest(
                 "Anita Verma", "9876543210",
                 LocalDate.of(2026, 9, 1), LocalDate.of(2026, 9, 5),
-                2, new BigDecimal("5000.00")
+                2, new BigDecimal("5000.00"), PaymentType.CASH
         );
 
         BookingResponse response = new BookingResponse(
                 1L, "Anita Verma", "9876543210",
                 LocalDate.of(2026, 9, 1), LocalDate.of(2026, 9, 5),
-                2, new BigDecimal("5000.00"), BookingStatus.CONFIRMED,
+                2, new BigDecimal("5000.00"), BookingStatus.CONFIRMED, PaymentType.CASH,
                 LocalDateTime.now(), LocalDateTime.now()
         );
 
@@ -75,7 +76,8 @@ class BookingControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.guestName").value("Anita Verma"))
-                .andExpect(jsonPath("$.status").value("CONFIRMED"));
+                .andExpect(jsonPath("$.status").value("CONFIRMED"))
+                .andExpect(jsonPath("$.paymentType").value("CASH"));
     }
 
     @Test
@@ -85,7 +87,7 @@ class BookingControllerTest {
         CreateBookingRequest invalidRequest = new CreateBookingRequest(
                 "", "",
                 null, null,
-                0, new BigDecimal("-100")
+                0, new BigDecimal("-100"), null
         );
 
         mockMvc.perform(post("/api/v1/bookings")
@@ -104,7 +106,7 @@ class BookingControllerTest {
         CreateBookingRequest request = new CreateBookingRequest(
                 "Anita Verma", "9876543210",
                 LocalDate.of(2026, 9, 5), LocalDate.of(2026, 9, 1),
-                2, new BigDecimal("5000.00")
+                2, new BigDecimal("5000.00"), PaymentType.CASH
         );
 
         when(bookingService.createBooking(any(CreateBookingRequest.class)))

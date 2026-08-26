@@ -2,6 +2,7 @@ package com.hotel.booking.dto;
 
 import com.hotel.booking.entity.Booking;
 import com.hotel.booking.entity.BookingStatus;
+import com.hotel.booking.entity.PaymentType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ public class BookingResponse {
     private Integer numberOfGuests;
     private BigDecimal totalAmount;
     private BookingStatus status;
+    private PaymentType paymentType;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -24,7 +26,7 @@ public class BookingResponse {
 
     public BookingResponse(Long id, String guestName, String phone,
                            LocalDate checkIn, LocalDate checkOut, Integer numberOfGuests,
-                           BigDecimal totalAmount, BookingStatus status,
+                           BigDecimal totalAmount, BookingStatus status, PaymentType paymentType,
                            LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.guestName = guestName;
@@ -34,6 +36,7 @@ public class BookingResponse {
         this.numberOfGuests = numberOfGuests;
         this.totalAmount = totalAmount;
         this.status = status;
+        this.paymentType = paymentType;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -51,6 +54,7 @@ public class BookingResponse {
                 booking.getNumberOfGuests(),
                 booking.getTotalAmount(),
                 booking.getStatus(),
+                booking.getPaymentType() != null ? booking.getPaymentType() : PaymentType.CASH,
                 booking.getCreatedAt(),
                 booking.getUpdatedAt()
         );
@@ -118,6 +122,14 @@ public class BookingResponse {
 
     public void setStatus(BookingStatus status) {
         this.status = status;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
     }
 
     public LocalDateTime getCreatedAt() {

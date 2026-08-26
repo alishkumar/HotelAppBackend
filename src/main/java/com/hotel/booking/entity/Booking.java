@@ -36,6 +36,10 @@ public class Booking {
     @Column(name = "status", nullable = false)
     private BookingStatus status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_type", nullable = false)
+    private PaymentType paymentType;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -47,7 +51,7 @@ public class Booking {
 
     public Booking(Long id, String guestName, String phone,
                    LocalDate checkIn, LocalDate checkOut, Integer numberOfGuests,
-                   BigDecimal totalAmount, BookingStatus status) {
+                   BigDecimal totalAmount, BookingStatus status, PaymentType paymentType) {
         this.id = id;
         this.guestName = guestName;
         this.phone = phone;
@@ -56,6 +60,7 @@ public class Booking {
         this.numberOfGuests = numberOfGuests;
         this.totalAmount = totalAmount;
         this.status = status;
+        this.paymentType = paymentType;
     }
 
     @PrePersist
@@ -65,6 +70,9 @@ public class Booking {
         this.updatedAt = now;
         if (this.status == null) {
             this.status = BookingStatus.CONFIRMED;
+        }
+        if (this.paymentType == null) {
+            this.paymentType = PaymentType.CASH;
         }
     }
 
@@ -137,6 +145,14 @@ public class Booking {
         this.status = status;
     }
 
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -177,6 +193,7 @@ public class Booking {
                 ", numberOfGuests=" + numberOfGuests +
                 ", totalAmount=" + totalAmount +
                 ", status=" + status +
+                ", paymentType=" + paymentType +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

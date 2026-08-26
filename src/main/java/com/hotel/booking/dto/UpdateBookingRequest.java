@@ -1,5 +1,6 @@
 package com.hotel.booking.dto;
 
+import com.hotel.booking.entity.PaymentType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -11,6 +12,7 @@ public class UpdateBookingRequest {
     private LocalDate checkOut;
     private Integer numberOfGuests;
     private BigDecimal totalAmount;
+    private PaymentType paymentType;
 
     public UpdateBookingRequest() {
     }
@@ -18,12 +20,20 @@ public class UpdateBookingRequest {
     public UpdateBookingRequest(String guestName, String phone,
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount) {
+        this(guestName, phone, checkIn, checkOut, numberOfGuests, totalAmount, null);
+    }
+
+    public UpdateBookingRequest(String guestName, String phone,
+                                LocalDate checkIn, LocalDate checkOut,
+                                Integer numberOfGuests, BigDecimal totalAmount,
+                                PaymentType paymentType) {
         this.guestName = guestName;
         this.phone = phone;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
         this.totalAmount = totalAmount;
+        this.paymentType = paymentType;
     }
 
     public String getGuestName() {
@@ -72,5 +82,13 @@ public class UpdateBookingRequest {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
     }
 }

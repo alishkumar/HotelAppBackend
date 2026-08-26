@@ -6,6 +6,7 @@ import com.hotel.booking.dto.BookingResponse;
 import com.hotel.booking.dto.BookingSearchCriteria;
 import com.hotel.booking.entity.Booking;
 import com.hotel.booking.entity.BookingStatus;
+import com.hotel.booking.entity.PaymentType;
 import com.hotel.booking.repository.BookingRepository;
 import com.hotel.booking.repository.BookingSpecification;
 import com.hotel.common.exception.InvalidBookingException;
@@ -51,6 +52,7 @@ public class BookingService {
         booking.setNumberOfGuests(request.getNumberOfGuests());
         booking.setTotalAmount(request.getTotalAmount());
         booking.setStatus(BookingStatus.CONFIRMED);
+        booking.setPaymentType(request.getPaymentType() != null ? request.getPaymentType() : PaymentType.CASH);
 
         Booking savedBooking = bookingRepository.save(booking);
         log.info("Booking created with ID: {}", savedBooking.getId());
@@ -74,6 +76,9 @@ public class BookingService {
         booking.setCheckOut(request.getCheckOut());
         booking.setNumberOfGuests(request.getNumberOfGuests());
         booking.setTotalAmount(request.getTotalAmount());
+        if (request.getPaymentType() != null) {
+            booking.setPaymentType(request.getPaymentType());
+        }
 
         Booking updatedBooking = bookingRepository.save(booking);
         log.info("Booking updated with ID: {}", updatedBooking.getId());
@@ -131,7 +136,7 @@ public class BookingService {
 
     @Transactional(readOnly = true)
     public Page<BookingResponse> searchBookings(BookingSearchCriteria criteria, Pageable pageable) {
-        Specification<Booking> spec = BookingSpecification.createSpecification(criteria);
+        Specification<Booking> spec = BookingSpecification.withCriteria(criteria);
         return bookingRepository.findAll(spec, pageable).map(BookingResponse::fromEntity);
     }
 

@@ -5,6 +5,7 @@ com/hotel/booking/controller/BookingController.class
 com/hotel/common/exception/ResourceNotFoundException.class
 com/hotel/booking/dto/BookingResponse.class
 com/hotel/config/AppConfig.class
+com/hotel/booking/entity/PaymentType.class
 com/hotel/booking/service/BookingService.class
 com/hotel/common/security/JwtAuthenticationFilter.class
 com/hotel/common/exception/InvalidBookingException.class

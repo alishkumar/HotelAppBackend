@@ -1,5 +1,6 @@
 package com.hotel.booking.dto;
 
+import com.hotel.booking.entity.PaymentType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -29,18 +30,28 @@ public class CreateBookingRequest {
     @PositiveOrZero(message = "Total amount must be greater than or equal to 0")
     private BigDecimal totalAmount;
 
+    private PaymentType paymentType;
+
     public CreateBookingRequest() {
     }
 
     public CreateBookingRequest(String guestName, String phone,
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount) {
+        this(guestName, phone, checkIn, checkOut, numberOfGuests, totalAmount, PaymentType.CASH);
+    }
+
+    public CreateBookingRequest(String guestName, String phone,
+                                LocalDate checkIn, LocalDate checkOut,
+                                Integer numberOfGuests, BigDecimal totalAmount,
+                                PaymentType paymentType) {
         this.guestName = guestName;
         this.phone = phone;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
         this.totalAmount = totalAmount;
+        this.paymentType = paymentType != null ? paymentType : PaymentType.CASH;
     }
 
     public String getGuestName() {
@@ -89,5 +100,13 @@ public class CreateBookingRequest {
 
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
     }
 }

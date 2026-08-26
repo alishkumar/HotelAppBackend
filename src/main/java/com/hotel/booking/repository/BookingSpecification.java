@@ -4,48 +4,47 @@ import com.hotel.booking.dto.BookingSearchCriteria;
 import com.hotel.booking.entity.Booking;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookingSpecification {
 
-    public static Specification<Booking> createSpecification(BookingSearchCriteria criteria) {
-        return (root, query, criteriaBuilder) -> {
+    public static Specification<Booking> withCriteria(BookingSearchCriteria criteria) {
+        return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (criteria.getGuestName() != null && !criteria.getGuestName().trim().isEmpty()) {
-                predicates.add(criteriaBuilder.like(
-                        criteriaBuilder.lower(root.get("guestName")),
-                        "%" + criteria.getGuestName().trim().toLowerCase() + "%"
-                ));
+            if (criteria == null) {
+                return cb.conjunction();
             }
 
-            if (criteria.getPhone() != null && !criteria.getPhone().trim().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(
-                        root.get("phone"), criteria.getPhone().trim()
-                ));
+            if (StringUtils.hasText(criteria.getGuestName())) {
+                predicates.add(cb.like(cb.lower(root.get("guestName")),
+                        "%" + criteria.getGuestName().toLowerCase() + "%"));
+            }
+
+            if (StringUtils.hasText(criteria.getPhone())) {
+                predicates.add(cb.equal(root.get("phone"), criteria.getPhone()));
             }
 
             if (criteria.getStatus() != null) {
-                predicates.add(criteriaBuilder.equal(
-                        root.get("status"), criteria.getStatus()
-                ));
+                predicates.add(cb.equal(root.get("status"), criteria.getStatus()));
+            }
+
+            if (criteria.getPaymentType() != null) {
+                predicates.add(cb.equal(root.get("paymentType"), criteria.getPaymentType()));
             }
 
             if (criteria.getCheckInFrom() != null) {
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(
-                        root.get("checkIn"), criteria.getCheckInFrom()
-                ));
+                predicates.add(cb.greaterThanOrEqualTo(root.get("checkIn"), criteria.getCheckInFrom()));
             }
 
             if (criteria.getCheckInTo() != null) {
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(
-                        root.get("checkIn"), criteria.getCheckInTo()
-                ));
+                predicates.add(cb.lessThanOrEqualTo(root.get("checkIn"), criteria.getCheckInTo()));
             }
 
-            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+            return cb.and(predicates.toArray(new Predicate[0]));
         };
     }
 }

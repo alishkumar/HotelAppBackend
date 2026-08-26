@@ -1,6 +1,7 @@
 package com.hotel.booking.dto;
 
 import com.hotel.booking.entity.BookingStatus;
+import com.hotel.booking.entity.PaymentType;
 import java.time.LocalDate;
 
 public class BookingSearchCriteria {
@@ -8,19 +9,11 @@ public class BookingSearchCriteria {
     private String guestName;
     private String phone;
     private BookingStatus status;
+    private PaymentType paymentType;
     private LocalDate checkInFrom;
     private LocalDate checkInTo;
 
     public BookingSearchCriteria() {
-    }
-
-    public BookingSearchCriteria(String guestName, String phone, BookingStatus status,
-                                 LocalDate checkInFrom, LocalDate checkInTo) {
-        this.guestName = guestName;
-        this.phone = phone;
-        this.status = status;
-        this.checkInFrom = checkInFrom;
-        this.checkInTo = checkInTo;
     }
 
     public String getGuestName() {
@@ -45,6 +38,14 @@ public class BookingSearchCriteria {
 
     public void setStatus(BookingStatus status) {
         this.status = status;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
     }
 
     public LocalDate getCheckInFrom() {
