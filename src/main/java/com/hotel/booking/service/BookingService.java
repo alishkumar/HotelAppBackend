@@ -53,6 +53,7 @@ public class BookingService {
 
         booking.setGuestName(request.getGuestName());
         booking.setPhone(request.getPhone());
+        booking.setRoomType(request.getRoomType());
         booking.setCheckIn(request.getCheckIn());
         booking.setCheckOut(request.getCheckOut());
         booking.setNumberOfGuests(request.getNumberOfGuests());
@@ -92,6 +93,9 @@ public class BookingService {
 
         booking.setGuestName(request.getGuestName());
         booking.setPhone(request.getPhone());
+        if (request.getRoomType() != null) {
+            booking.setRoomType(request.getRoomType());
+        }
         booking.setCheckIn(request.getCheckIn());
         booking.setCheckOut(request.getCheckOut());
         booking.setNumberOfGuests(request.getNumberOfGuests());

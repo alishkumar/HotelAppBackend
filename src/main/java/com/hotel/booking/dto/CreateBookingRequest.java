@@ -16,6 +16,8 @@ public class CreateBookingRequest {
     @NotBlank(message = "Phone number is required")
     private String phone;
 
+    private String roomType;
+
     @NotNull(message = "Check-in date is required")
     private LocalDate checkIn;
 
@@ -37,16 +39,18 @@ public class CreateBookingRequest {
 
     public CreateBookingRequest(String guestName, String phone,
                                 LocalDate checkIn, LocalDate checkOut,
-                                Integer numberOfGuests, BigDecimal totalAmount) {
-        this(guestName, phone, checkIn, checkOut, numberOfGuests, totalAmount, PaymentType.CASH);
+                                Integer numberOfGuests, BigDecimal totalAmount,
+                                PaymentType paymentType) {
+        this(guestName, phone, null, checkIn, checkOut, numberOfGuests, totalAmount, paymentType);
     }
 
-    public CreateBookingRequest(String guestName, String phone,
+    public CreateBookingRequest(String guestName, String phone, String roomType,
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 PaymentType paymentType) {
         this.guestName = guestName;
         this.phone = phone;
+        this.roomType = roomType;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
@@ -68,6 +72,14 @@ public class CreateBookingRequest {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public LocalDate getCheckIn() {

@@ -8,6 +8,7 @@ public class UpdateBookingRequest {
 
     private String guestName;
     private String phone;
+    private String roomType;
     private LocalDate checkIn;
     private LocalDate checkOut;
     private Integer numberOfGuests;
@@ -19,16 +20,18 @@ public class UpdateBookingRequest {
 
     public UpdateBookingRequest(String guestName, String phone,
                                 LocalDate checkIn, LocalDate checkOut,
-                                Integer numberOfGuests, BigDecimal totalAmount) {
-        this(guestName, phone, checkIn, checkOut, numberOfGuests, totalAmount, null);
+                                Integer numberOfGuests, BigDecimal totalAmount,
+                                PaymentType paymentType) {
+        this(guestName, phone, null, checkIn, checkOut, numberOfGuests, totalAmount, paymentType);
     }
 
-    public UpdateBookingRequest(String guestName, String phone,
+    public UpdateBookingRequest(String guestName, String phone, String roomType,
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 PaymentType paymentType) {
         this.guestName = guestName;
         this.phone = phone;
+        this.roomType = roomType;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
@@ -50,6 +53,14 @@ public class UpdateBookingRequest {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public LocalDate getCheckIn() {

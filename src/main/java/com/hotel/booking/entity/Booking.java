@@ -19,6 +19,9 @@ public class Booking {
     @Column(name = "phone", nullable = false)
     private String phone;
 
+    @Column(name = "room_type")
+    private String roomType;
+
     @Column(name = "check_in", nullable = false)
     private LocalDate checkIn;
 
@@ -48,12 +51,13 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(Long id, String guestName, String phone,
+    public Booking(Long id, String guestName, String phone, String roomType,
                    LocalDate checkIn, LocalDate checkOut, Integer numberOfGuests,
                    BigDecimal totalAmount, BookingStatus status, PaymentType paymentType) {
         this.id = id;
         this.guestName = guestName;
         this.phone = phone;
+        this.roomType = roomType;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
@@ -102,6 +106,14 @@ public class Booking {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public LocalDate getCheckIn() {
@@ -187,6 +199,7 @@ public class Booking {
                 "id=" + id +
                 ", guestName='" + guestName + '\'' +
                 ", phone='" + phone + '\'' +
+                ", roomType='" + roomType + '\'' +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
                 ", numberOfGuests=" + numberOfGuests +

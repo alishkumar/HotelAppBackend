@@ -41,7 +41,7 @@ class BookingServiceTest {
     @DisplayName("Create booking successfully when dates are valid")
     void createBooking_Success() {
         CreateBookingRequest request = new CreateBookingRequest(
-                "Rahul Kumar", "9876543210",
+                "Rahul Kumar", "9876543210", "Family Room",
                 LocalDate.of(2026, 8, 25), LocalDate.of(2026, 8, 27),
                 2, new BigDecimal("3500.00"), PaymentType.CASH
         );
@@ -53,6 +53,7 @@ class BookingServiceTest {
         assertNotNull(response);
         assertEquals(25082601L, response.getId());
         assertEquals("Rahul Kumar", response.getGuestName());
+        assertEquals("Family Room", response.getRoomType());
         assertEquals(BookingStatus.CONFIRMED, response.getStatus());
         assertEquals(PaymentType.CASH, response.getPaymentType());
 
@@ -63,7 +64,7 @@ class BookingServiceTest {
     @DisplayName("Create booking fails when check-out is before check-in")
     void createBooking_InvalidDates_ShouldThrowException() {
         CreateBookingRequest request = new CreateBookingRequest(
-                "Rahul Kumar", "9876543210",
+                "Rahul Kumar", "9876543210", "Family Room",
                 LocalDate.of(2026, 8, 27), LocalDate.of(2026, 8, 25),
                 2, new BigDecimal("3500.00"), PaymentType.CASH
         );
@@ -76,13 +77,13 @@ class BookingServiceTest {
     @DisplayName("Update booking successfully")
     void updateBooking_Success() {
         Booking existingBooking = new Booking(
-                25082601L, "Rahul Kumar", "9876543210",
+                25082601L, "Rahul Kumar", "9876543210", "Family Room",
                 LocalDate.of(2026, 8, 25), LocalDate.of(2026, 8, 27),
                 2, new BigDecimal("3500.00"), BookingStatus.CONFIRMED, PaymentType.CASH
         );
 
         UpdateBookingRequest updateRequest = new UpdateBookingRequest(
-                "Rahul Sharma", "9876543210",
+                "Rahul Sharma", "9876543210", "Deluxe Room",
                 LocalDate.of(2026, 8, 26), LocalDate.of(2026, 8, 28),
                 3, new BigDecimal("4500.00"), PaymentType.CASH
         );
@@ -94,6 +95,7 @@ class BookingServiceTest {
 
         assertNotNull(response);
         assertEquals("Rahul Sharma", response.getGuestName());
+        assertEquals("Deluxe Room", response.getRoomType());
         assertEquals(3, response.getNumberOfGuests());
         assertEquals(PaymentType.CASH, response.getPaymentType());
     }
@@ -102,7 +104,7 @@ class BookingServiceTest {
     @DisplayName("Cancel booking successfully changes status to CANCELLED")
     void cancelBooking_Success() {
         Booking existingBooking = new Booking(
-                25082601L, "Rahul Kumar", "9876543210",
+                25082601L, "Rahul Kumar", "9876543210", "Family Room",
                 LocalDate.of(2026, 8, 25), LocalDate.of(2026, 8, 27),
                 2, new BigDecimal("3500.00"), BookingStatus.CONFIRMED, PaymentType.CASH
         );
