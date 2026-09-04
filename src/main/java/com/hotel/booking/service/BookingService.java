@@ -182,7 +182,7 @@ public class BookingService {
     @Transactional(readOnly = true)
     public List<BookingResponse> getUpcomingBookings() {
         LocalDate today = getToday();
-        return bookingRepository.findByCheckInAfterAndStatusNotOrderByCheckInAsc(today, BookingStatus.CANCELLED)
+        return bookingRepository.findByCheckInAfterOrderByCheckInAsc(today)
                 .stream()
                 .map(BookingResponse::fromEntity)
                 .toList();
@@ -191,7 +191,7 @@ public class BookingService {
     @Transactional(readOnly = true)
     public List<BookingResponse> getCurrentBookings() {
         LocalDate today = getToday();
-        return bookingRepository.findByCheckInLessThanEqualAndCheckOutGreaterThanAndStatusNot(today, today, BookingStatus.CANCELLED)
+        return bookingRepository.findByCheckInLessThanEqualAndCheckOutGreaterThan(today, today)
                 .stream()
                 .map(BookingResponse::fromEntity)
                 .toList();
@@ -200,7 +200,7 @@ public class BookingService {
     @Transactional(readOnly = true)
     public List<BookingResponse> getPastBookings() {
         LocalDate today = getToday();
-        return bookingRepository.findByCheckOutLessThanEqualAndStatusNotOrderByCheckOutDesc(today, BookingStatus.CANCELLED)
+        return bookingRepository.findByCheckOutLessThanEqualOrderByCheckOutDesc(today)
                 .stream()
                 .map(BookingResponse::fromEntity)
                 .toList();
@@ -209,7 +209,7 @@ public class BookingService {
     @Transactional(readOnly = true)
     public List<BookingResponse> getTodayCheckIns() {
         LocalDate today = getToday();
-        return bookingRepository.findByCheckInAndStatusNot(today, BookingStatus.CANCELLED)
+        return bookingRepository.findByCheckIn(today)
                 .stream()
                 .map(BookingResponse::fromEntity)
                 .toList();
@@ -218,7 +218,7 @@ public class BookingService {
     @Transactional(readOnly = true)
     public List<BookingResponse> getTodayCheckOuts() {
         LocalDate today = getToday();
-        return bookingRepository.findByCheckOutAndStatusNot(today, BookingStatus.CANCELLED)
+        return bookingRepository.findByCheckOut(today)
                 .stream()
                 .map(BookingResponse::fromEntity)
                 .toList();
