@@ -1,5 +1,6 @@
 package com.hotel.booking.dto;
 
+import com.hotel.booking.entity.BookingSource;
 import com.hotel.booking.entity.BookingStatus;
 import com.hotel.booking.entity.PaymentType;
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ public class BookingSearchCriteria {
     private String guestName;
     private String phone;
     private String roomType;
-    private String source;
+    private BookingSource source;
     private BookingStatus status;
     private PaymentType paymentType;
     private LocalDate checkInFrom;
@@ -42,11 +43,11 @@ public class BookingSearchCriteria {
         this.roomType = roomType;
     }
 
-    public String getSource() {
+    public BookingSource getSource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(BookingSource source) {
         this.source = source;
     }
 

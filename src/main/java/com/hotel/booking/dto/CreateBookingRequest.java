@@ -1,5 +1,6 @@
 package com.hotel.booking.dto;
 
+import com.hotel.booking.entity.BookingSource;
 import com.hotel.booking.entity.PaymentType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -18,7 +19,7 @@ public class CreateBookingRequest {
 
     private String roomType;
 
-    private String source;
+    private BookingSource source;
 
     @NotNull(message = "Check-in date is required")
     private LocalDate checkIn;
@@ -56,7 +57,7 @@ public class CreateBookingRequest {
         this(guestName, phone, roomType, null, checkIn, checkOut, numberOfGuests, totalAmount, advanceAmount, paymentType);
     }
 
-    public CreateBookingRequest(String guestName, String phone, String roomType, String source,
+    public CreateBookingRequest(String guestName, String phone, String roomType, BookingSource source,
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 BigDecimal advanceAmount, PaymentType paymentType) {
@@ -96,11 +97,11 @@ public class CreateBookingRequest {
         this.roomType = roomType;
     }
 
-    public String getSource() {
+    public BookingSource getSource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(BookingSource source) {
         this.source = source;
     }
 

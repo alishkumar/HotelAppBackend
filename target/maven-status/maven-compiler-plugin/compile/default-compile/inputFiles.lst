@@ -8,6 +8,8 @@
 /Users/alishkumar/Documents/Backend/src/main/java/com/hotel/booking/dto/CreateBookingRequest.java
 /Users/alishkumar/Documents/Backend/src/main/java/com/hotel/booking/dto/UpdateBookingRequest.java
 /Users/alishkumar/Documents/Backend/src/main/java/com/hotel/booking/entity/Booking.java
+/Users/alishkumar/Documents/Backend/src/main/java/com/hotel/booking/entity/BookingSource.java
+/Users/alishkumar/Documents/Backend/src/main/java/com/hotel/booking/entity/BookingSourceConverter.java
 /Users/alishkumar/Documents/Backend/src/main/java/com/hotel/booking/entity/BookingStatus.java
 /Users/alishkumar/Documents/Backend/src/main/java/com/hotel/booking/entity/PaymentType.java
 /Users/alishkumar/Documents/Backend/src/main/java/com/hotel/booking/repository/BookingRepository.java

@@ -1,5 +1,7 @@
 com/hotel/booking/dto/UpdateBookingRequest.class
 com/hotel/config/SecurityConfig.class
+com/hotel/booking/entity/BookingSource.class
+com/hotel/booking/entity/BookingSourceConverter.class
 com/hotel/user/repository/UserRepository.class
 com/hotel/booking/controller/BookingController.class
 com/hotel/common/exception/ResourceNotFoundException.class

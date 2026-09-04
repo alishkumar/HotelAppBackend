@@ -23,7 +23,7 @@ public class Booking {
     private String roomType;
 
     @Column(name = "source")
-    private String source;
+    private BookingSource source;
 
     @Column(name = "check_in", nullable = false)
     private LocalDate checkIn;
@@ -57,7 +57,7 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(Long id, String guestName, String phone, String roomType, String source,
+    public Booking(Long id, String guestName, String phone, String roomType, BookingSource source,
                    LocalDate checkIn, LocalDate checkOut, Integer numberOfGuests,
                    BigDecimal totalAmount, BigDecimal advanceAmount,
                    BookingStatus status, PaymentType paymentType) {
@@ -125,11 +125,11 @@ public class Booking {
         this.roomType = roomType;
     }
 
-    public String getSource() {
+    public BookingSource getSource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(BookingSource source) {
         this.source = source;
     }
 
@@ -225,7 +225,7 @@ public class Booking {
                 ", guestName='" + guestName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", roomType='" + roomType + '\'' +
-                ", source='" + source + '\'' +
+                ", source=" + source +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
                 ", numberOfGuests=" + numberOfGuests +

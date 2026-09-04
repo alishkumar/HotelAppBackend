@@ -1,6 +1,7 @@
 package com.hotel.booking.dto;
 
 import com.hotel.booking.entity.Booking;
+import com.hotel.booking.entity.BookingSource;
 import com.hotel.booking.entity.BookingStatus;
 import com.hotel.booking.entity.PaymentType;
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public class BookingResponse {
     private String guestName;
     private String phone;
     private String roomType;
-    private String source;
+    private BookingSource source;
     private LocalDate checkIn;
     private LocalDate checkOut;
     private Integer numberOfGuests;
@@ -27,7 +28,7 @@ public class BookingResponse {
     public BookingResponse() {
     }
 
-    public BookingResponse(Long id, String guestName, String phone, String roomType, String source,
+    public BookingResponse(Long id, String guestName, String phone, String roomType, BookingSource source,
                            LocalDate checkIn, LocalDate checkOut, Integer numberOfGuests,
                            BigDecimal totalAmount, BigDecimal advanceAmount,
                            BookingStatus status, PaymentType paymentType,
@@ -102,11 +103,11 @@ public class BookingResponse {
         this.roomType = roomType;
     }
 
-    public String getSource() {
+    public BookingSource getSource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setSource(BookingSource source) {
         this.source = source;
     }
 
