@@ -9,6 +9,7 @@ public class UpdateBookingRequest {
     private String guestName;
     private String phone;
     private String roomType;
+    private String source;
     private LocalDate checkIn;
     private LocalDate checkOut;
     private Integer numberOfGuests;
@@ -23,16 +24,24 @@ public class UpdateBookingRequest {
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 PaymentType paymentType) {
-        this(guestName, phone, roomType, checkIn, checkOut, numberOfGuests, totalAmount, null, paymentType);
+        this(guestName, phone, roomType, null, checkIn, checkOut, numberOfGuests, totalAmount, null, paymentType);
     }
 
     public UpdateBookingRequest(String guestName, String phone, String roomType,
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 BigDecimal advanceAmount, PaymentType paymentType) {
+        this(guestName, phone, roomType, null, checkIn, checkOut, numberOfGuests, totalAmount, advanceAmount, paymentType);
+    }
+
+    public UpdateBookingRequest(String guestName, String phone, String roomType, String source,
+                                LocalDate checkIn, LocalDate checkOut,
+                                Integer numberOfGuests, BigDecimal totalAmount,
+                                BigDecimal advanceAmount, PaymentType paymentType) {
         this.guestName = guestName;
         this.phone = phone;
         this.roomType = roomType;
+        this.source = source;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
@@ -63,6 +72,14 @@ public class UpdateBookingRequest {
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public LocalDate getCheckIn() {

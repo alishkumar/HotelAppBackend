@@ -22,6 +22,9 @@ public class Booking {
     @Column(name = "room_type")
     private String roomType;
 
+    @Column(name = "source")
+    private String source;
+
     @Column(name = "check_in", nullable = false)
     private LocalDate checkIn;
 
@@ -54,7 +57,7 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(Long id, String guestName, String phone, String roomType,
+    public Booking(Long id, String guestName, String phone, String roomType, String source,
                    LocalDate checkIn, LocalDate checkOut, Integer numberOfGuests,
                    BigDecimal totalAmount, BigDecimal advanceAmount,
                    BookingStatus status, PaymentType paymentType) {
@@ -62,6 +65,7 @@ public class Booking {
         this.guestName = guestName;
         this.phone = phone;
         this.roomType = roomType;
+        this.source = source;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
@@ -81,6 +85,9 @@ public class Booking {
         }
         if (this.paymentType == null) {
             this.paymentType = PaymentType.CASH;
+        }
+        if (this.source == null) {
+            this.source = "Booking.com";
         }
     }
 
@@ -119,6 +126,14 @@ public class Booking {
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public LocalDate getCheckIn() {
@@ -213,6 +228,7 @@ public class Booking {
                 ", guestName='" + guestName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", roomType='" + roomType + '\'' +
+                ", source='" + source + '\'' +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
                 ", numberOfGuests=" + numberOfGuests +

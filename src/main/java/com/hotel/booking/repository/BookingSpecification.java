@@ -33,6 +33,11 @@ public class BookingSpecification {
                         "%" + criteria.getRoomType().toLowerCase() + "%"));
             }
 
+            if (StringUtils.hasText(criteria.getSource())) {
+                predicates.add(cb.like(cb.lower(root.get("source")),
+                        "%" + criteria.getSource().toLowerCase() + "%"));
+            }
+
             if (criteria.getStatus() != null) {
                 predicates.add(cb.equal(root.get("status"), criteria.getStatus()));
             }

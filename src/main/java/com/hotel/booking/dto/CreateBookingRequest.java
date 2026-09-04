@@ -18,6 +18,8 @@ public class CreateBookingRequest {
 
     private String roomType;
 
+    private String source;
+
     @NotNull(message = "Check-in date is required")
     private LocalDate checkIn;
 
@@ -44,16 +46,24 @@ public class CreateBookingRequest {
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 PaymentType paymentType) {
-        this(guestName, phone, roomType, checkIn, checkOut, numberOfGuests, totalAmount, null, paymentType);
+        this(guestName, phone, roomType, "Booking.com", checkIn, checkOut, numberOfGuests, totalAmount, null, paymentType);
     }
 
     public CreateBookingRequest(String guestName, String phone, String roomType,
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 BigDecimal advanceAmount, PaymentType paymentType) {
+        this(guestName, phone, roomType, "Booking.com", checkIn, checkOut, numberOfGuests, totalAmount, advanceAmount, paymentType);
+    }
+
+    public CreateBookingRequest(String guestName, String phone, String roomType, String source,
+                                LocalDate checkIn, LocalDate checkOut,
+                                Integer numberOfGuests, BigDecimal totalAmount,
+                                BigDecimal advanceAmount, PaymentType paymentType) {
         this.guestName = guestName;
         this.phone = phone;
         this.roomType = roomType;
+        this.source = source != null ? source : "Booking.com";
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
@@ -84,6 +94,14 @@ public class CreateBookingRequest {
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public LocalDate getCheckIn() {

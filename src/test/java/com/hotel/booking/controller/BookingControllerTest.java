@@ -55,13 +55,13 @@ class BookingControllerTest {
     @DisplayName("POST /api/v1/bookings - Success returns 201 CREATED")
     void createBooking_Success_ShouldReturn201() throws Exception {
         CreateBookingRequest request = new CreateBookingRequest(
-                "Anita Verma", "9876543210", "Double Room with Private Bathroom",
+                "Anita Verma", "9876543210", "Double Room with Private Bathroom", "Booking.com",
                 LocalDate.of(2026, 9, 1), LocalDate.of(2026, 9, 5),
                 2, new BigDecimal("5000.00"), new BigDecimal("1000.00"), PaymentType.CASH
         );
 
         BookingResponse response = new BookingResponse(
-                1092601L, "Anita Verma", "9876543210", "Double Room with Private Bathroom",
+                1092601L, "Anita Verma", "9876543210", "Double Room with Private Bathroom", "Booking.com",
                 LocalDate.of(2026, 9, 1), LocalDate.of(2026, 9, 5),
                 2, new BigDecimal("5000.00"), new BigDecimal("1000.00"),
                 BookingStatus.CONFIRMED, PaymentType.CASH,
@@ -78,6 +78,7 @@ class BookingControllerTest {
                 .andExpect(jsonPath("$.id").value(1092601))
                 .andExpect(jsonPath("$.guestName").value("Anita Verma"))
                 .andExpect(jsonPath("$.roomType").value("Double Room with Private Bathroom"))
+                .andExpect(jsonPath("$.source").value("Booking.com"))
                 .andExpect(jsonPath("$.advanceAmount").value(1000.00))
                 .andExpect(jsonPath("$.status").value("CONFIRMED"))
                 .andExpect(jsonPath("$.paymentType").value("CASH"));
@@ -88,7 +89,7 @@ class BookingControllerTest {
     @DisplayName("POST /api/v1/bookings - Bean Validation Failure returns 400 BAD REQUEST")
     void createBooking_ValidationFailure_ShouldReturn400() throws Exception {
         CreateBookingRequest invalidRequest = new CreateBookingRequest(
-                "", "", "",
+                "", "", "", "",
                 null, null,
                 0, new BigDecimal("-100"), null, null
         );
@@ -107,7 +108,7 @@ class BookingControllerTest {
     @DisplayName("POST /api/v1/bookings - Invalid Date Range returns 400 BAD REQUEST")
     void createBooking_InvalidDateRange_ShouldReturn400() throws Exception {
         CreateBookingRequest request = new CreateBookingRequest(
-                "Anita Verma", "9876543210", "Double Room with Private Bathroom",
+                "Anita Verma", "9876543210", "Double Room with Private Bathroom", "Google",
                 LocalDate.of(2026, 9, 5), LocalDate.of(2026, 9, 1),
                 2, new BigDecimal("5000.00"), null, PaymentType.CASH
         );

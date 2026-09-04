@@ -9,6 +9,7 @@ public class BookingSearchCriteria {
     private String guestName;
     private String phone;
     private String roomType;
+    private String source;
     private BookingStatus status;
     private PaymentType paymentType;
     private LocalDate checkInFrom;
@@ -39,6 +40,14 @@ public class BookingSearchCriteria {
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public BookingStatus getStatus() {
