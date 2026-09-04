@@ -54,7 +54,7 @@ public class BookingService {
         booking.setGuestName(request.getGuestName());
         booking.setPhone(request.getPhone());
         booking.setRoomType(request.getRoomType());
-        booking.setSource(request.getSource() != null ? request.getSource() : "Booking.com");
+        booking.setSource(request.getSource());
         booking.setCheckIn(request.getCheckIn());
         booking.setCheckOut(request.getCheckOut());
         booking.setNumberOfGuests(request.getNumberOfGuests());

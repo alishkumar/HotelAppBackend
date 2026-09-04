@@ -86,9 +86,6 @@ public class Booking {
         if (this.paymentType == null) {
             this.paymentType = PaymentType.CASH;
         }
-        if (this.source == null) {
-            this.source = "Booking.com";
-        }
     }
 
     @PreUpdate

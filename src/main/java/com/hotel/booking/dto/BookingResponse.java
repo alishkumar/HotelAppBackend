@@ -57,7 +57,7 @@ public class BookingResponse {
                 booking.getGuestName(),
                 booking.getPhone(),
                 booking.getRoomType(),
-                booking.getSource() != null ? booking.getSource() : "Booking.com",
+                booking.getSource(),
                 booking.getCheckIn(),
                 booking.getCheckOut(),
                 booking.getNumberOfGuests(),

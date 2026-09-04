@@ -46,14 +46,14 @@ public class CreateBookingRequest {
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 PaymentType paymentType) {
-        this(guestName, phone, roomType, "Booking.com", checkIn, checkOut, numberOfGuests, totalAmount, null, paymentType);
+        this(guestName, phone, roomType, null, checkIn, checkOut, numberOfGuests, totalAmount, null, paymentType);
     }
 
     public CreateBookingRequest(String guestName, String phone, String roomType,
                                 LocalDate checkIn, LocalDate checkOut,
                                 Integer numberOfGuests, BigDecimal totalAmount,
                                 BigDecimal advanceAmount, PaymentType paymentType) {
-        this(guestName, phone, roomType, "Booking.com", checkIn, checkOut, numberOfGuests, totalAmount, advanceAmount, paymentType);
+        this(guestName, phone, roomType, null, checkIn, checkOut, numberOfGuests, totalAmount, advanceAmount, paymentType);
     }
 
     public CreateBookingRequest(String guestName, String phone, String roomType, String source,
@@ -63,7 +63,7 @@ public class CreateBookingRequest {
         this.guestName = guestName;
         this.phone = phone;
         this.roomType = roomType;
-        this.source = source != null ? source : "Booking.com";
+        this.source = source;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.numberOfGuests = numberOfGuests;
